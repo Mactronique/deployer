@@ -1,0 +1,7 @@
+#!/usr/bin/env php
+<?php
+
+$phar = new Phar(__DIR__.'/../deployer.phar', FilesystemIterator::CURRENT_AS_FILEINFO |FilesystemIterator::KEY_AS_FILENAME, "deployer.phar");
+$phar->buildFromDirectory(__DIR__."/../",'/.php$/');
+$phar["deployer"] = file_get_contents(__DIR__."/deployer");
+$phar->setStub($phar->createDefaultStub("deployer"));
