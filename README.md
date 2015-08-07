@@ -1,6 +1,9 @@
 # Deployer
 
-## config :
+[![Dependency Status](https://www.versioneye.com/user/projects/55c48bd7653762001700351d/badge.svg?style=flat)](https://www.versioneye.com/user/projects/55c48bd7653762001700351d)
+
+
+## config
 
 Place .deployer.yaml on root of project with content :
 
