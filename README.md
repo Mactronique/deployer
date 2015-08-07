@@ -46,12 +46,13 @@ project:
 
 ## Command
 
-This is the goal :
 
 Init the project and create the configuration (from the dev workstation) :
 ``` shell
-php deployer.phar init
+php deployer.phar project:init
 ```
+
+This is the goal :
 
 Deploy in the server :
 ``` shell
