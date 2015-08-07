@@ -12,9 +12,13 @@ require_once __DIR__.'/../vendor/autoload.php';
 
 //use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Application;
+use Mactronique\Deployer\DeployerApp;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Debug\Debug;
 use Mactronique\Deployer\Command;
+use Mactronique\Deployer\Config\Configuration;
+use Symfony\Component\Yaml\Yaml;
+use Symfony\Component\Config\Definition\Processor;
 
 $input = new ArgvInput();
 $env = $input->getParameterOption(array('--env', '-e'), getenv('DEPLOYER_ENV') ?: 'dev');
@@ -24,8 +28,24 @@ if ($debug) {
     Debug::enable();
 }
 
+// Configuration 
+
+$configPath = __DIR__.'/../config/app.yml';
+if (file_exists($configPath)) {
+	$config = Yaml::parse(file_get_contents($configPath));
+} else {
+	$config = [];
+}
+
+$processor = new Processor();
+$configuration = new Configuration();
+$processedConfiguration = $processor->processConfiguration(
+    $configuration,
+    [$config]);
+
 //$kernel = new AppKernel($env, $debug);
-$application = new Application('Deployer', '0.0.0');
+$application = new DeployerApp('Deployer', '0.0.1');
+$application->setConfig($processedConfiguration);
 
 $application->add(new Command\InitCommand());
 $application->add(new Command\DeployCommand());
