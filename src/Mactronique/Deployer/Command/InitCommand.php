@@ -31,6 +31,7 @@ class InitCommand extends Command
         $this
             ->setName('project:init')
             ->setDescription('Init the project file configuration')
+            ->setHelp('Help for my command !!!!')
             ->addArgument(
                 'path',
                 InputArgument::REQUIRED,

@@ -14,7 +14,7 @@ require_once __DIR__.'/../vendor/autoload.php';
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Debug\Debug;
-use Mactronique\Deployer\Command\InitCommand;
+use Mactronique\Deployer\Command;
 
 $input = new ArgvInput();
 $env = $input->getParameterOption(array('--env', '-e'), getenv('DEPLOYER_ENV') ?: 'dev');
@@ -27,6 +27,11 @@ if ($debug) {
 //$kernel = new AppKernel($env, $debug);
 $application = new Application('Deployer', '0.0.0');
 
-$application->add(new InitCommand());
+$application->add(new Command\InitCommand());
+$application->add(new Command\DeployCommand());
+$application->add(new Command\UpdateCommand());
+$application->add(new Command\ManagerAddCommand());
+$application->add(new Command\ManagerRemoveCommand());
+$application->add(new Command\ManagerListCommand());
 
 $application->run($input);
