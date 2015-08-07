@@ -51,6 +51,8 @@ class InitCommand extends Command
         $output->writeln('<question>                                      </question>');
         $output->writeln('');
 
+        dump($this->getApplication()->getConfig());
+
         $path = rtrim(rtrim($input->getArgument('path'), '/'), '\\').DIRECTORY_SEPARATOR;
 
 
