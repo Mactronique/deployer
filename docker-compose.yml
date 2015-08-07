@@ -1,0 +1,4 @@
+tools:
+    image: macintoshplus/composer:latest
+    volumes:
+        - .:/src
