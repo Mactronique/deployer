@@ -10,3 +10,6 @@ install:
 prepare-update:
 	@$(tool) bash -ci '/fixright && sudo -E -u phpuser composer update --dry-run'
 
+update:
+	$(tool) bash -ci '/fixright && sudo -E -u phpuser composer update $(lib)'
+
