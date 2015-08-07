@@ -35,6 +35,7 @@ project:
         - 
             name: dev
             server: myserver
+            env: dev # the plateform environment (dev, preprod, prod)
             source: trunk #if you want overwrite the source
             folder_dest: /var/www/project
             allow_backup: false #if true, the folder project is copied before update
