@@ -18,7 +18,7 @@ class Configuration implements ConfigurationInterface
                         ->defaultFalse()
                     ->end()
                     ->scalarNode('svn-path')
-                        ->default(null)
+                        ->defaultValue(null)
                     ->end()
                     ->arrayNode('projects')
                         ->useAttributeAsKey('name')
