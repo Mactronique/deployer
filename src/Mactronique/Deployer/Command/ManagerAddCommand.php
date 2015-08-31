@@ -55,7 +55,8 @@ EOT
         $output->writeln('');
         
         $path = $input->getArgument('url');
-
+        $conf = ['url'=>$path, 'enable'=>true];
+        
         $output->writeln($path);
 
 

@@ -46,6 +46,7 @@ $processedConfiguration = $processor->processConfiguration(
 //$kernel = new AppKernel($env, $debug);
 $application = new DeployerApp('Deployer', '0.0.1');
 $application->setConfig($processedConfiguration);
+$application->setConfigPath($configPath);
 
 $application->add(new Command\InitCommand());
 $application->add(new Command\DeployCommand());
