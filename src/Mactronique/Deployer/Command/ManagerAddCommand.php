@@ -31,7 +31,10 @@ class ManagerAddCommand extends Command
         $this
             ->setName('manager:add')
             ->setDescription('Add the project into manager')
-            ->setHelp('Help for my command !!!!')
+            ->setHelp(<<<EOT
+This command can add an project into manager. After this command, you can update the new project by using project name.
+EOT
+            )
             ->addArgument(
                 'url',
                 InputArgument::REQUIRED,
@@ -46,12 +49,12 @@ class ManagerAddCommand extends Command
         $output->getFormatter()->setStyle('fire', $style);
 
         $output->writeln('');
-        $output->writeln('<question>                                      </question>');
-        $output->writeln('<question>  Init the deployer for this project  </question>');
-        $output->writeln('<question>                                      </question>');
+        $output->writeln('<question>                                             </question>');
+        $output->writeln('<question>  Add this project into the project manager  </question>');
+        $output->writeln('<question>                                             </question>');
         $output->writeln('');
         
-        $path = rtrim(rtrim($input->getArgument('path'), '/'), '\\').DIRECTORY_SEPARATOR;
+        $path = $input->getArgument('url');
 
         $output->writeln($path);
 
