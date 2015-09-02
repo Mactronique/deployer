@@ -32,11 +32,7 @@ class ManagerListCommand extends Command
             ->setName('manager:list')
             ->setDescription('List all project into manager')
             ->setHelp('Help for my command !!!!')
-            ->addArgument(
-                'url',
-                InputArgument::REQUIRED,
-                'url to deloyer config file'
-            )
+            ->addOption('update', 'u', InputOption::VALUE_NONE, 'Update the list of project from SVN main repository')
         ;
     }
 
@@ -51,10 +47,10 @@ class ManagerListCommand extends Command
         $output->writeln('<question>                                      </question>');
         $output->writeln('');
         
-        $path = rtrim(rtrim($input->getArgument('path'), '/'), '\\').DIRECTORY_SEPARATOR;
 
-        $output->writeln($path);
+        $update = $this->getOption('update');
 
+        
 
     }
 }

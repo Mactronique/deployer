@@ -10,6 +10,8 @@ class DeployerApp extends Application
     
     protected $configPath;
 
+    protected $projectPath;
+
     public function setConfig(array $config)
     {
         $this->config = $config;
@@ -42,6 +44,30 @@ class DeployerApp extends Application
     public function setConfigPath($configPath)
     {
         $this->configPath = $configPath;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of projectPath.
+     *
+     * @return mixed
+     */
+    public function getProjectPath()
+    {
+        return $this->projectPath;
+    }
+
+    /**
+     * Sets the value of projectPath.
+     *
+     * @param mixed $projectPath the project path
+     *
+     * @return self
+     */
+    public function setProjectPath($projectPath)
+    {
+        $this->projectPath = $projectPath;
 
         return $this;
     }

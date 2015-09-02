@@ -17,6 +17,7 @@ use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Debug\Debug;
 use Mactronique\Deployer\Command;
 use Mactronique\Deployer\Config\Configuration;
+use Mactronique\Deployer\Config\ProjectConfiguration;
 use Symfony\Component\Yaml\Yaml;
 use Symfony\Component\Config\Definition\Processor;
 
@@ -37,16 +38,39 @@ if (file_exists($configPath)) {
 	$config = [];
 }
 
+$projectPath = __DIR__.'/../config/projects.yml';
+if (file_exists($projectPath)) {
+	$project = Yaml::parse(file_get_contents($projectPath));
+} else {
+	$project = [];
+}
+
 $processor = new Processor();
 $configuration = new Configuration();
-$processedConfiguration = $processor->processConfiguration(
-    $configuration,
-    [$config]);
+try {
+	$processedConfiguration = $processor->processConfiguration(
+	    $configuration,
+	    [$config]);
+} catch (\Exception $e) {
+	echo sprintf("In app configuration : %s\n", $e->getMessage());
+	exit(1);
+}
+$projectConfiguration = new ProjectConfiguration();
 
+try {
+	$processedProjectConfiguration = $processor->processConfiguration(
+	    $projectConfiguration,
+	    [$project]);
+	$processedConfiguration['projects'] = $processedProjectConfiguration;
+} catch (\Exception $e) {
+	echo sprintf("In project configuration : %s\n", $e->getMessage());
+	exit(1);
+}
 //$kernel = new AppKernel($env, $debug);
 $application = new DeployerApp('Deployer', '0.0.1');
 $application->setConfig($processedConfiguration);
 $application->setConfigPath($configPath);
+$application->setProjectConfigPath($projectPath);
 
 $application->add(new Command\InitCommand());
 $application->add(new Command\DeployCommand());

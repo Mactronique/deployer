@@ -28,6 +28,22 @@ class SvnAdapter implements CvsAdapter
 
     }
 
+    public function ls($url)
+    {
+        $command = $this->getCommand('svn ls', $url);
+        $this->run($command);
+
+    }
+
+    protected function run($command)
+    {
+        $proc = new ProcessExecutor();
+        $output = null;
+        $proc->execute($command, $output);
+        dump($output);
+        return $output;
+    }
+
     protected function getCommand($cmd, $url, $path = null)
     {
         $command = sprintf('%s %s%s %s', $cmd, '--non-interactive ', $this->getCredentialString(), ProcessExecutor::escape($url));
